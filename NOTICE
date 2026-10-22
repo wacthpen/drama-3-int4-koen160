@@ -1,0 +1,15 @@
+These Fish Audio Materials are licensed under the Fish Audio Community License, Version 1.0. Copyright © 39 AI, INC. All Rights Reserved.
+
+Modifications (this repository is a Derivative Work of fishaudio/drama-3-int4):
+- The routed experts of every MoE layer of the text backbone were pruned from 256 to 160.
+  The 160 kept per layer are the ones the original model's router chose most often while
+  generating about 150 Korean and English lines (router statistics, no retraining).
+  config.json text_config.num_experts = 160; the router weights were cut to match.
+- Nothing else in the weights was changed (the experts stay int4 as in fishaudio/drama-3-int4).
+- sglang-omni-patch/drama3-hadamard8.patch is an optional runtime patch for SGLang-Omni that
+  stores lm_head, embed_tokens and the audio decoder's linear layers as Hadamard-rotated int8
+  (W8A8) when the model loads. The files on disk are not changed by it.
+  Its int8 kernels are adapted from FreeVideo (freevideo_engine/int8_ops.py, Copyright FlashML-org,
+  Apache License 2.0). SGLang-Omni is Apache License 2.0.
+
+This is not an official Fish Audio release and is not endorsed by Fish Audio.
